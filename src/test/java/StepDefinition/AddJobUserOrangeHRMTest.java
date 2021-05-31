@@ -1,6 +1,7 @@
 package StepDefinition;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
@@ -13,7 +14,7 @@ public class AddJobUserOrangeHRMTest {
 
     @BeforeTest
     public void before() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         HashMap<String, Object> map = new HashMap<>();
         map.put("profile.default_content_setting_values.notifications", 2);
         ChromeOptions options = new ChromeOptions();
@@ -21,8 +22,8 @@ public class AddJobUserOrangeHRMTest {
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.get("https://orangehrm-demo-6x.orangehrmlive.com/");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("https://opensource-demo.orangehrmlive.com/index.php/auth/login");
 
         WebElement elementEmail = driver.findElement(By.xpath("//*[@id = 'txtUsername']"));
         WebElement elementPass = driver.findElement(By.xpath("//*[@id = 'txtPassword']"));
@@ -35,6 +36,58 @@ public class AddJobUserOrangeHRMTest {
 
     @Test
     public void shouldAddUserSuccess () {
-        
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        WebElement elementUserRole = driver.findElement(By.id("systemUser_userType"));
+        //elementUserRole.click();
+        Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        userRole.selectByVisibleText("Admin");
+        WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        elementEmployeeName.sendKeys("John Smith");
+        WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
+        elementUsername.sendKeys("UsernameJohn");
+        WebElement elementStatus = driver.findElement(By.id("systemUser_status"));
+        //elementStatus.click();
+        Select status = new Select(driver.findElement(By.id("systemUser_status")));
+        status.selectByVisibleText("Enabled");
+        WebElement elementPassword = driver.findElement(By.id("systemUser_password"));
+        elementPassword.sendKeys("123456789");
+        WebElement elementConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        elementConfirmPassword.sendKeys("123456789");
+        WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
+
+        elementBtnSave.click();
+    }
+
+    @Test
+    public void shouldThrowsRequireEmployeeNameException() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        WebElement elementUserRole = driver.findElement(By.id("systemUser_userType"));
+        //elementUserRole.click();
+        Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        userRole.selectByVisibleText("Admin");
+        WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        elementEmployeeName.sendKeys("");
+        WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
+        elementUsername.sendKeys("UsernameJohn");
+        WebElement elementStatus = driver.findElement(By.id("systemUser_status"));
+        //elementStatus.click();
+        Select status = new Select(driver.findElement(By.id("systemUser_status")));
+        status.selectByVisibleText("Enabled");
+        WebElement elementPassword = driver.findElement(By.id("systemUser_password"));
+        elementPassword.sendKeys("123456789");
+        WebElement elementConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        elementConfirmPassword.sendKeys("123456789");
+        WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
+
+        elementBtnSave.click();
+        Assert.assertEquals("Required", driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText());
+
     }
 }
