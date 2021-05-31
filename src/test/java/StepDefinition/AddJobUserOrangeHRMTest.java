@@ -1,4 +1,5 @@
 package StepDefinition;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.Select;
@@ -87,7 +88,38 @@ public class AddJobUserOrangeHRMTest {
         WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
 
         elementBtnSave.click();
-        Assert.assertEquals("Required", driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText());
+        //Assert.assertEquals("Required", driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText());
+        Assert.assertEquals(driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText(), "Required");
 
+    }
+
+    @Test
+    public void shouldThrowsEmployeeDoesNotExist() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        WebElement elementUserRole = driver.findElement(By.id("systemUser_userType"));
+        //elementUserRole.click();
+        Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        userRole.selectByVisibleText("Admin");
+        WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        elementEmployeeName.sendKeys("cekusernamebebeas");
+        WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
+        elementUsername.sendKeys("UsernameJohn");
+        WebElement elementStatus = driver.findElement(By.id("systemUser_status"));
+        //elementStatus.click();
+        Select status = new Select(driver.findElement(By.id("systemUser_status")));
+        status.selectByVisibleText("Enabled");
+        WebElement elementPassword = driver.findElement(By.id("systemUser_password"));
+        elementPassword.sendKeys("123456789");
+        WebElement elementConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        elementConfirmPassword.sendKeys("123456789");
+        WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
+
+        elementBtnSave.click();
+        System.out.println(driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText());
+        Assert.assertEquals(driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText(), "Employee does not exist");
     }
 }
