@@ -122,4 +122,83 @@ public class AddJobUserOrangeHRMTest {
         System.out.println(driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText());
         Assert.assertEquals(driver.findElement(By.xpath("//span[@class = 'validation-error']")).getText(), "Employee does not exist");
     }
+    
+    @Test
+    public void addUserWithEmptyUsername() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        WebElement elementUserRole = driver.findElement(By.id("systemUser_userType"));
+        //elementUserRole.click();
+        Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        userRole.selectByVisibleText("Admin");
+        WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        elementEmployeeName.sendKeys("David Morris");
+        WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
+        elementUsername.sendKeys("");
+        WebElement elementPassword = driver.findElement(By.id("systemUser_password"));
+        elementPassword.sendKeys("123456789");
+        WebElement elementConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        elementConfirmPassword.sendKeys("123456789");
+        WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
+        elementBtnSave.click();
+        Assert.assertEquals("Required", driver.findElement(By.xpath("//span[text()='Required']")).getText());
+    }
+
+    @Test
+    public void addUserWithUsernameAlreadyExist() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        userRole.selectByVisibleText("Admin");
+        WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        elementEmployeeName.sendKeys("David Morris");
+        WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
+        elementUsername.sendKeys("admin123");
+        WebElement elementStatus = driver.findElement(By.id("systemUser_status"));
+        //elementStatus.click();
+        Select status = new Select(driver.findElement(By.id("systemUser_status")));
+        status.selectByVisibleText("Enabled");
+        WebElement elementPassword = driver.findElement(By.id("systemUser_password"));
+        elementPassword.sendKeys("123456789");
+        WebElement elementConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        elementConfirmPassword.sendKeys("123456789");
+        WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
+        elementBtnSave.click();
+        Assert.assertEquals("Already exists", driver.findElement(By.xpath("//span[text()='Already exists']")).getText());
+    }
+
+
+    @Test
+    public void addUserWithCharacterLessThanFive() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        WebElement elementUserRole = driver.findElement(By.id("systemUser_userType"));
+        //elementUserRole.click();
+        Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        userRole.selectByVisibleText("Admin");
+        WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        elementEmployeeName.sendKeys("David Morris");
+        WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
+        elementUsername.sendKeys("admi");
+        WebElement elementStatus = driver.findElement(By.id("systemUser_status"));
+        //elementStatus.click();
+        Select status = new Select(driver.findElement(By.id("systemUser_status")));
+        status.selectByVisibleText("Enabled");
+        WebElement elementPassword = driver.findElement(By.id("systemUser_password"));
+        elementPassword.sendKeys("123456789");
+        WebElement elementConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        elementConfirmPassword.sendKeys("123456789");
+        WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
+        elementBtnSave.click();
+        Assert.assertEquals("Should have at least 5 characters", driver.findElement(By.xpath("//span[text()='Should have at least 5 characters']")).getText());
+    }
 }
