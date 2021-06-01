@@ -63,7 +63,7 @@ public class AddJobUserOrangeHRMTest {
     }
 
     @Test
-    public void shouldThrowsRequireEmployeeNameException() {
+    public void addUserWithEmptyEmployeeName() {
         WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
         elementAdmin.click();
 
@@ -74,7 +74,7 @@ public class AddJobUserOrangeHRMTest {
         Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
         userRole.selectByVisibleText("Admin");
         WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
-        elementEmployeeName.sendKeys("");
+        elementEmployeeName.sendKeys(""); // --> empty employee name
         WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
         elementUsername.sendKeys("UsernameJohn");
         WebElement elementStatus = driver.findElement(By.id("systemUser_status"));
@@ -94,7 +94,7 @@ public class AddJobUserOrangeHRMTest {
     }
 
     @Test
-    public void shouldThrowsEmployeeDoesNotExist() {
+    public void addUserWithRandomEmployeeName() {
         WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
         elementAdmin.click();
 
@@ -105,7 +105,7 @@ public class AddJobUserOrangeHRMTest {
         Select userRole = new Select(driver.findElement(By.id("systemUser_userType")));
         userRole.selectByVisibleText("Admin");
         WebElement elementEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
-        elementEmployeeName.sendKeys("cekusernamebebeas");
+        elementEmployeeName.sendKeys("cekusernamebebeas"); // --> Random Employee Name
         WebElement elementUsername = driver.findElement(By.id("systemUser_userName"));
         elementUsername.sendKeys("UsernameJohn");
         WebElement elementStatus = driver.findElement(By.id("systemUser_status"));
@@ -173,7 +173,6 @@ public class AddJobUserOrangeHRMTest {
         Assert.assertEquals("Already exists", driver.findElement(By.xpath("//span[text()='Already exists']")).getText());
     }
 
-
     @Test
     public void addUserWithCharacterLessThanFive() {
         WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
@@ -200,5 +199,10 @@ public class AddJobUserOrangeHRMTest {
         WebElement elementBtnSave = driver.findElement(By.id("btnSave"));
         elementBtnSave.click();
         Assert.assertEquals("Should have at least 5 characters", driver.findElement(By.xpath("//span[text()='Should have at least 5 characters']")).getText());
+    }
+
+    @AfterTest
+    public void after() {
+        driver.quit();
     }
 }
