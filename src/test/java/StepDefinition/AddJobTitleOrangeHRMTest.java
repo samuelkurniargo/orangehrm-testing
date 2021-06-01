@@ -43,7 +43,7 @@ public class AddJobTitleOrangeHRMTest {
     }
 
     @Test
-    public void addJobTitleWithTitleAlreadyExist() {
+    public void shouldAddJobTitleWithSuccess() {
         WebElement elementBtnAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
         elementBtnAdmin.click();
         WebElement elementBtnJob = driver.findElement(By.id("menu_admin_Job"));
@@ -53,7 +53,30 @@ public class AddJobTitleOrangeHRMTest {
         WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
         elementBtnAdd.click();
         WebElement textFieldJobTitle = driver.findElement(By.id("jobTitle_jobTitle"));
-        textFieldJobTitle.sendKeys("This is Job Title");
+        textFieldJobTitle.sendKeys("Ini mengisi job title");
+        WebElement textAreaJobDescription = driver.findElement(By.id("jobTitle_jobDescription"));
+        textAreaJobDescription.sendKeys("This is Description of Job");
+        WebElement fileChooserJobTitle = driver.findElement(By.id("jobTitle_jobSpec"));
+        fileChooserJobTitle.sendKeys(file.getAbsolutePath());
+        WebElement textAreaJobNote = driver.findElement(By.id("jobTitle_note"));
+        textAreaJobNote.sendKeys("This is Note of Job");
+        WebElement btnSave = driver.findElement(By.id("btnSave"));
+        btnSave.click();
+//        Assert.assertEquals("Already exists", driver.findElement(By.xpath("//span[text()='Already exists']")).getText());
+    }
+
+    @Test
+    public void shouldAddJobTitleWithTitleAlreadyExist() {
+        WebElement elementBtnAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementBtnAdmin.click();
+        WebElement elementBtnJob = driver.findElement(By.id("menu_admin_Job"));
+        elementBtnJob.click();
+        WebElement elementBtnJobTitle = driver.findElement(By.id("menu_admin_viewJobTitleList"));
+        elementBtnJobTitle.click();
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        WebElement textFieldJobTitle = driver.findElement(By.id("jobTitle_jobTitle"));
+        textFieldJobTitle.sendKeys("Ini mengisi job title");
         WebElement textAreaJobDescription = driver.findElement(By.id("jobTitle_jobDescription"));
         textAreaJobDescription.sendKeys("This is Description of Job");
         WebElement fileChooserJobTitle = driver.findElement(By.id("jobTitle_jobSpec"));
@@ -66,7 +89,7 @@ public class AddJobTitleOrangeHRMTest {
     }
 
     @Test
-    public void addJobTitleWithoutEmptyFill() {
+    public void shouldAddJobTitleWithoutEmptyFill() {
         String titleID = UUID.randomUUID().toString();
         WebElement elementBtnAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
         elementBtnAdmin.click();
