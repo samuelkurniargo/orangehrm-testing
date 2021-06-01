@@ -19,6 +19,8 @@ public class AddJobTitleOrangeHRMTest {
     WebDriver driver;
     private String urlJobAdmin= "https://opensource-demo.orangehrmlive.com/index.php/admin/viewJobTitleList";
     File file = new File("call.png");
+    String titleID = UUID.randomUUID().toString();
+    private File bigSizeFile = new File("all.rar");
 
     @BeforeTest
     public void before() {
@@ -43,7 +45,7 @@ public class AddJobTitleOrangeHRMTest {
     }
 
     @Test
-    public void shouldAddJobTitleWithSuccess() {
+    public void shouldAddJobTitleWithTitleEmpty() {
         WebElement elementBtnAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
         elementBtnAdmin.click();
         WebElement elementBtnJob = driver.findElement(By.id("menu_admin_Job"));
@@ -53,7 +55,7 @@ public class AddJobTitleOrangeHRMTest {
         WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
         elementBtnAdd.click();
         WebElement textFieldJobTitle = driver.findElement(By.id("jobTitle_jobTitle"));
-        textFieldJobTitle.sendKeys("Ini mengisi job title");
+        textFieldJobTitle.sendKeys("");
         WebElement textAreaJobDescription = driver.findElement(By.id("jobTitle_jobDescription"));
         textAreaJobDescription.sendKeys("This is Description of Job");
         WebElement fileChooserJobTitle = driver.findElement(By.id("jobTitle_jobSpec"));
@@ -76,7 +78,7 @@ public class AddJobTitleOrangeHRMTest {
         WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
         elementBtnAdd.click();
         WebElement textFieldJobTitle = driver.findElement(By.id("jobTitle_jobTitle"));
-        textFieldJobTitle.sendKeys("Ini mengisi job title");
+        textFieldJobTitle.sendKeys(titleID);
         WebElement textAreaJobDescription = driver.findElement(By.id("jobTitle_jobDescription"));
         textAreaJobDescription.sendKeys("This is Description of Job");
         WebElement fileChooserJobTitle = driver.findElement(By.id("jobTitle_jobSpec"));
@@ -89,8 +91,7 @@ public class AddJobTitleOrangeHRMTest {
     }
 
     @Test
-    public void shouldAddJobTitleWithoutEmptyFill() {
-        String titleID = UUID.randomUUID().toString();
+    public void shouldAddJobTitleWithSuccess() {
         WebElement elementBtnAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
         elementBtnAdmin.click();
         WebElement elementBtnJob = driver.findElement(By.id("menu_admin_Job"));
