@@ -10,6 +10,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class AddJobTitleOrangeHRMTest {
     WebDriver driver;
     private String urlJobAdmin= "https://opensource-demo.orangehrmlive.com/index.php/admin/viewJobTitleList";
+    File file = new File("call.png");
 
     @BeforeTest
     public void before() {
@@ -55,7 +57,7 @@ public class AddJobTitleOrangeHRMTest {
         WebElement textAreaJobDescription = driver.findElement(By.id("jobTitle_jobDescription"));
         textAreaJobDescription.sendKeys("This is Description of Job");
         WebElement fileChooserJobTitle = driver.findElement(By.id("jobTitle_jobSpec"));
-        fileChooserJobTitle.sendKeys("call.png");
+        fileChooserJobTitle.sendKeys(file.getAbsolutePath());
         WebElement textAreaJobNote = driver.findElement(By.id("jobTitle_note"));
         textAreaJobNote.sendKeys("This is Note of Job");
         WebElement btnSave = driver.findElement(By.id("btnSave"));
@@ -79,7 +81,7 @@ public class AddJobTitleOrangeHRMTest {
         WebElement textAreaJobDescription = driver.findElement(By.id("jobTitle_jobDescription"));
         textAreaJobDescription.sendKeys("This is Description of Job");
         WebElement fileChooserJobTitle = driver.findElement(By.id("jobTitle_jobSpec"));
-        fileChooserJobTitle.sendKeys("call.png");
+        fileChooserJobTitle.sendKeys(file.getAbsolutePath());
         WebElement textAreaJobNote = driver.findElement(By.id("jobTitle_note"));
         textAreaJobNote.sendKeys("This is Note of Job");
         WebElement btnSave = driver.findElement(By.id("btnSave"));
