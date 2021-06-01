@@ -94,6 +94,7 @@ public class AddJobUserOrangeHRMTest {
     }
 
     @Test
+
     public void addUserWithRandomEmployeeName() {
         WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
         elementAdmin.click();
