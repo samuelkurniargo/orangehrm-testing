@@ -112,7 +112,30 @@ public class AddJobTitleOrangeHRMTest {
         btnSave.click();
         Assert.assertEquals(driver.getCurrentUrl(), urlJobAdmin);
     }
-
+    
+    @Test
+    public void shouldAddJobTitleWithBigSizeFile() {
+        String url = "https://opensource-demo.orangehrmlive.com/index.php/admin/saveJobTitle/jobTitleId/";
+        WebElement elementBtnAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementBtnAdmin.click();
+        WebElement elementBtnJob = driver.findElement(By.id("menu_admin_Job"));
+        elementBtnJob.click();
+        WebElement elementBtnJobTitle = driver.findElement(By.id("menu_admin_viewJobTitleList"));
+        elementBtnJobTitle.click();
+        WebElement elementBtnAdd = driver.findElement(By.id("btnAdd"));
+        elementBtnAdd.click();
+        WebElement textFieldJobTitle = driver.findElement(By.id("jobTitle_jobTitle"));
+        textFieldJobTitle.sendKeys("Job1");
+        WebElement textAreaJobDescription = driver.findElement(By.id("jobTitle_jobDescription"));
+        textAreaJobDescription.sendKeys("This is Description of Job");
+        WebElement fileChooserJobTitle = driver.findElement(By.id("jobTitle_jobSpec"));
+        fileChooserJobTitle.sendKeys(bigSizeFile.getAbsolutePath());
+        WebElement textAreaJobNote = driver.findElement(By.id("jobTitle_note"));
+        textAreaJobNote.sendKeys("This is Note of Job");
+        WebElement btnSave = driver.findElement(By.id("btnSave"));
+        btnSave.click();
+        Assert.assertEquals(url, driver.getCurrentUrl());
+    }
     @AfterTest
     public void after() {
         driver.quit();
