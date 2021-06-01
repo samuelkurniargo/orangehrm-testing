@@ -202,6 +202,88 @@ public class AddJobUserOrangeHRMTest {
         Assert.assertEquals("Should have at least 5 characters", driver.findElement(By.xpath("//span[text()='Should have at least 5 characters']")).getText());
     }
 
+    @Test
+    public void addUserWithNormalPassword() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+        WebElement btnAddUser = driver.findElement(By.id("btnAdd"));
+        btnAddUser.click();
+        Select selectRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        WebElement textFieldUsername = driver.findElement(By.id("systemUser_userName"));
+        WebElement textFieldEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        WebElement textFieldPassword = driver.findElement(By.id("systemUser_password"));
+        WebElement textFieldConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        WebElement btnSave = driver.findElement(By.id("btnSave"));
+        selectRole.selectByVisibleText("Admin");
+        textFieldEmployeeName.sendKeys("David Morris");
+        textFieldUsername.sendKeys("admin123");
+        textFieldPassword.sendKeys("admin12345");
+        textFieldConfirmPassword.sendKeys("admin12345");
+        btnSave.click();
+    }
+
+    @Test
+    public void addUserWithEmptyPassword() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+        WebElement btnAddUser = driver.findElement(By.id("btnAdd"));
+        btnAddUser.click();
+        Select selectRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        WebElement textFieldUsername = driver.findElement(By.id("systemUser_userName"));
+        WebElement textFieldEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        WebElement textFieldPassword = driver.findElement(By.id("systemUser_password"));
+        WebElement textFieldConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        WebElement btnSave = driver.findElement(By.id("btnSave"));
+        selectRole.selectByVisibleText("Admin");
+        textFieldEmployeeName.sendKeys("David Morris");
+        textFieldUsername.sendKeys("StevenSand");
+        textFieldPassword.sendKeys("");
+        textFieldConfirmPassword.sendKeys("");
+        btnSave.click();
+        Assert.assertEquals("Required", driver.findElement(By.xpath("//span[text()='Required']")).getText());
+    }
+
+    @Test
+    public void addUserWithDifferentWithConfirm() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+        WebElement btnAddUser = driver.findElement(By.id("btnAdd"));
+        btnAddUser.click();
+        Select selectRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        WebElement textFieldUsername = driver.findElement(By.id("systemUser_userName"));
+        WebElement textFieldEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        WebElement textFieldPassword = driver.findElement(By.id("systemUser_password"));
+        WebElement textFieldConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        WebElement btnSave = driver.findElement(By.id("btnSave"));
+        selectRole.selectByVisibleText("Admin");
+        textFieldEmployeeName.sendKeys("David Morris");
+        textFieldUsername.sendKeys("StevenSanjaya");
+        textFieldPassword.sendKeys("admin12345");
+        textFieldConfirmPassword.sendKeys("admin12345678");
+        btnSave.click();
+        Assert.assertEquals("Passwords do not match", driver.findElement(By.xpath("//span[text()='Passwords do not match']")).getText());
+    }
+
+    @Test
+    public void addUserWithAtLeastEightCharacter() {
+        WebElement elementAdmin = driver.findElement(By.id("menu_admin_viewAdminModule"));
+        elementAdmin.click();
+        WebElement btnAddUser = driver.findElement(By.id("btnAdd"));
+        btnAddUser.click();
+        Select selectRole = new Select(driver.findElement(By.id("systemUser_userType")));
+        WebElement textFieldUsername = driver.findElement(By.id("systemUser_userName"));
+        WebElement textFieldEmployeeName = driver.findElement(By.id("systemUser_employeeName_empName"));
+        WebElement textFieldPassword = driver.findElement(By.id("systemUser_password"));
+        WebElement textFieldConfirmPassword = driver.findElement(By.id("systemUser_confirmPassword"));
+        WebElement btnSave = driver.findElement(By.id("btnSave"));
+        selectRole.selectByVisibleText("Admin");
+        textFieldEmployeeName.sendKeys("David Morris");
+        textFieldUsername.sendKeys("StevenSanjayaPPPPP");
+        textFieldPassword.sendKeys("1234");
+        textFieldConfirmPassword.sendKeys("1234");
+        btnSave.click();
+        Assert.assertEquals("Please enter at least 8 characters.", driver.findElement(By.xpath("//span[text()='Please enter at least 8 characters.']")).getText());
+    }
     @AfterTest
     public void after() {
         driver.quit();
